@@ -100,18 +100,20 @@ Eclipse eCAL library files
   -Dasio_INCLUDE_DIR=%{_includedir}/asio \
   -Dtclap_INCLUDE_DIR=%{_includedir}/tclap \
   -Dtcp_pubsub_INCLUDE_DIR=%{_includedir}/tcp_pubsub \
-  -Dsimpleini_INCLUDE_DIR=/usr/local/include \
-  -Dtcp_pubsub_DIR=%{_libdir}/cmake/tcp_pubsub
+  -Dsimpleini_INCLUDE_DIR=%{_includedir} \
+  -Dtcp_pubsub_DIR=%{_prefix}/lib/cmake/tcp_pubsub
 %cmake_build
 
 %install
 %cmake_install
+mv %{buildroot}%{_prefix}%{_sysconfdir} %{buildroot}%{_sysconfdir}
 
 %files
+%{_bindir}/ecal_process_stub-0.0.0
+%{_bindir}/ecal_process_stub
 %{_sysconfdir}/ecal/ecal.ini
 %license LICENSE.txt
 %doc README.md
-%{_bindir}/ecal_process_stub-0.0.0
 
 %files devel
 %{_includedir}/ecalhdf5/eh5_defs.h
@@ -242,38 +244,55 @@ Eclipse eCAL library files
 %{_includedir}/ecal/protobuf/ecal_proto_hlp.h
 %{_includedir}/ecal/protobuf/ecal_proto_dyn.h
 %{_includedir}/ecal/protobuf/ecal_proto_decoder.h
-%{_prefix}/lib/cmake/CMakeFunctions-0.4.1/target_definitions/targets_protobuf.cmake
-%{_prefix}/lib/cmake/CMakeFunctions-0.4.1/protoc_functions/protoc_generate_python.cmake
+%{_libdir}/cmake/eCAL/eCALConfigVersion.cmake
+%{_libdir}/cmake/eCAL/eCALConfig.cmake
+%{_prefix}/lib/cmake/CMakeFunctions-0.4.1/CMakeFunctionsConfig.cmake
+%{_prefix}/lib/cmake/CMakeFunctions-0.4.1/CMakeFunctionsConfigVersion.cmake
+%{_prefix}/lib/cmake/CMakeFunctions-0.4.1/cmake_functions.cmake
+%{_prefix}/lib/cmake/CMakeFunctions-0.4.1/git/git_revision_information.cmake
+%{_prefix}/lib/cmake/CMakeFunctions-0.4.1/msvc_helper/msvc_macros.cmake
 %{_prefix}/lib/cmake/CMakeFunctions-0.4.1/protoc_functions/protoc_generate_cpp.cmake
 %{_prefix}/lib/cmake/CMakeFunctions-0.4.1/protoc_functions/protoc_generate_files.cmake
-%{_prefix}/lib/cmake/CMakeFunctions-0.4.1/msvc_helper/msvc_macros.cmake
-%{_prefix}/lib/cmake/CMakeFunctions-0.4.1/git/git_revision_information.cmake
-%{_prefix}/lib/cmake/CMakeFunctions-0.4.1/cmake_functions.cmake
-%{_prefix}/lib/cmake/CMakeFunctions-0.4.1/CMakeFunctionsConfigVersion.cmake
-%{_prefix}/lib/cmake/CMakeFunctions-0.4.1/CMakeFunctionsConfig.cmake
+%{_prefix}/lib/cmake/CMakeFunctions-0.4.1/protoc_functions/protoc_generate_python.cmake
+%{_prefix}/lib/cmake/CMakeFunctions-0.4.1/target_definitions/targets_protobuf.cmake
+%{_libdir}/cmake/eCAL/eCALTargets-noconfig.cmake
+%{_libdir}/cmake/eCAL/eCALTargets.cmake
+%{_libdir}/cmake/eCAL/helper_functions/ecal_add_functions.cmake
+%{_libdir}/cmake/eCAL/helper_functions/ecal_helper_functions.cmake
+%{_libdir}/cmake/eCAL/helper_functions/ecal_install_functions.cmake
 
 %files libs
-%{_prefix}/lib/libecal_app_pb.so.0
-%{_prefix}/lib/libecal_core.so.0
-%{_prefix}/lib/libecal_core_c.so.0
-%{_prefix}/lib/libecal_core_pb.so.0
-%{_prefix}/lib/libecal_hdf5.a
-%{_prefix}/lib/libecal_rec_addon_core.a
-%{_prefix}/lib/libecal_mon_plugin_lib.a
-%{_prefix}/lib/libecal_ecal-utils.a
-%{_prefix}/lib/libecal_core.so.0.0.0
-%{_prefix}/lib/libecal_core_c.so.0.0.0
-%{_prefix}/lib/libecal_app_pb.so.0.0.0
-%{_prefix}/lib/libecal_core_pb.so.0.0.0
-%{_prefix}/lib/libecal_pb.a
-%{_prefix}/lib/libecal_proto.a
-%{_prefix}/lib/cmake/eCAL/eCALTargets-noconfig.cmake
-%{_prefix}/lib/cmake/eCAL/eCALTargets.cmake
-%{_prefix}/lib/cmake/eCAL/helper_functions/ecal_install_functions.cmake
-%{_prefix}/lib/cmake/eCAL/helper_functions/ecal_helper_functions.cmake
-%{_prefix}/lib/cmake/eCAL/helper_functions/ecal_add_functions.cmake
-%{_prefix}/lib/cmake/eCAL/eCALConfigVersion.cmake
-%{_prefix}/lib/cmake/eCAL/eCALConfig.cmake
+%{_libdir}/libecal_ecal-utils.a
+%{_libdir}/libecal_mon_plugin_lib.so.0.0.0
+%{_libdir}/libecal_mon_plugin_lib.so.0
+%{_libdir}/libecal_mon_plugin_lib.so
+%{_libdir}/libecal_rec_addon_core.so.0.0.0
+%{_libdir}/libecal_rec_addon_core.so.0
+%{_libdir}/libecal_rec_addon_core.so
+%{_libdir}/libecal_hdf5.so.0.0.0
+%{_libdir}/libecal_hdf5.so.0
+%{_libdir}/libecal_hdf5.so
+%{_libdir}/libecal_app_pb.so
+%{_libdir}/libecal_app_pb.so.0
+%{_libdir}/libecal_app_pb.so.0.0.0
+%{_libdir}/libecal_core.so
+%{_libdir}/libecal_core.so.0
+%{_libdir}/libecal_core.so.0.0.0
+%{_libdir}/libecal_core_c.so
+%{_libdir}/libecal_core_c.so.0
+%{_libdir}/libecal_core_c.so.0.0.0
+%{_libdir}/libecal_core_pb.so
+%{_libdir}/libecal_core_pb.so.0
+%{_libdir}/libecal_core_pb.so.0.0.0
+%{_libdir}/libecal_pb.a
+%{_libdir}/libecal_proto.so
+%{_libdir}/libecal_proto.so.0
+%{_libdir}/libecal_proto.so.0.0.0
+%{_prefix}/lib/debug/usr/lib64/libecal_app_pb.so.0.0.0-5.11.1-1.20230122gitrpm.fc37.x86_64.debug
+%{_prefix}/lib/debug/usr/lib64/libecal_core.so.0.0.0-5.11.1-1.20230122gitrpm.fc37.x86_64.debug
+%{_prefix}/lib/debug/usr/lib64/libecal_core_c.so.0.0.0-5.11.1-1.20230122gitrpm.fc37.x86_64.debug
+%{_prefix}/lib/debug/usr/lib64/libecal_core_pb.so.0.0.0-5.11.1-1.20230122gitrpm.fc37.x86_64.debug
+%{_prefix}/lib/debug/usr/lib64/libecal_proto.so.0.0.0-5.11.1-1.20230122gitrpm.fc37.x86_64.debug
 
 %changelog
 * Sun Jan 22 2023 Leonardo Rossetti <lrossett@redhat.com> - 5.11.1-1
